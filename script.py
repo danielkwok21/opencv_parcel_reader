@@ -1,5 +1,6 @@
 from imageProcessing import ImageProcessing
 from Util import Util
+import cv2
 
 ip = ImageProcessing()
 u = Util()
@@ -17,3 +18,4 @@ sensitivity = 200
 contours = ip.getTopContours(ip.getContours(img), sensitivity)
 u.writeToFile(contours)
 ip.drawContours(ori, contours)
+ip.displayImage(ori)

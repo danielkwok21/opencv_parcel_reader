@@ -2,32 +2,33 @@ import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 
-#k-means
-x = [28, 90, 25, 90, 79, 90, 57, 76, 47, 55, 87, 29, 61, 31, 74, 50, 83, 49, 30, 45, 26, 88, 52, 99]
-y = [249, 218, 247, 248, 177, 214, 233, 250, 246, 251, 182, 184, 197, 183, 240, 179, 199, 241,
- 250, 233, 228, 247, 239, 177]
+class ML:
+	def kmeans(list, k):
+		# X = [[34, 36], [47, 35] ,[47, 25], [25, 43], [29, 34], [37, 47], [30, 29]]
+		# Y = [[84, 75], [75, 65], [83, 81], [81, 81], [72, 80], [77, 82], [70, 71]]
+		# Z = np.vstack((X,Y))
 
-#joins lists
-z = np.hstack((x,y))	
+		# convert to np.float32
+		Z = list
+		Z = np.float32(Z)
 
-#transform
-z = z.reshape((48,1))	
 
-#change type to float32
-z = np.float32(z)		
+		# define criteria and apply kmeans()
+		criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
+		ret,label,center=cv2.kmeans(Z,k,criteria,10,cv2.KMEANS_RANDOM_CENTERS)
 
-#plot on histogram
-plt.hist(z,256,[0,256]),plt.show()
+		# Now separate the data, Note the flatten()
+		categories = []
+		for i in range(k):
+			print i
+			categories.append(Z[label.ravel()==i])
 
-# Define criteria = ( type, max_iter = 10 , epsilon = 1.0 )
-criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
+		# Plot the data
 
-# Set flags (Just to avoid line break in the code)
-flags = cv2.KMEANS_RANDOM_CENTERS
+		for cat in categories:
+			plt.scatter(cat[:,0],cat[:,1])
+			# plt.scatter(B[:,0],B[:,1],c = 'r')
+			plt.scatter(center[:,0],center[:,1],s = 80,c = 'y', marker = 's')
 
-# Apply KMeans
-compactness,labels,centers = cv2.kmeans(z,2,None,criteria,10,flags)
-
-print compactness
-print labels
-print centers
+		plt.xlabel('Height'),plt.ylabel('Weight')
+		plt.show()
