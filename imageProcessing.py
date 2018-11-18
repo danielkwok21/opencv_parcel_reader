@@ -1,4 +1,5 @@
 import cv2
+import numpy
 
 class ImageProcessing:
 	def read(self, path):
@@ -8,7 +9,16 @@ class ImageProcessing:
 		cv2.imshow('image', img)
 		cv2.waitKey(0)
 		cv2.destroyAllWindows()
+		return
 
+	def _erode(img):
+		kernel = numpy.ones((3,3), numpy.uint8)
+		return cv2.erode(img, kernel, iterations=1)
+
+	def _dilate(img):
+		kernel = numpy.ones((3,3), numpy.uint8)
+		return cv2.dilate(img, kernel, iterations=1)
+		
 	def grayScale(self, img):
 		return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
@@ -52,3 +62,4 @@ class ImageProcessing:
 	        rect = (x, y, w, h)
 	        rects.append(rect)
 	        cv2.rectangle(ori, (x, y), (x+w, y+h), (0, 255, 0), 1);
+        return

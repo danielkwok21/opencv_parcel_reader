@@ -3,7 +3,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 class ML:
-	def kmeans(list, k):
+	def kmeans(self, list, k):
 		# X = [[34, 36], [47, 35] ,[47, 25], [25, 43], [29, 34], [37, 47], [30, 29]]
 		# Y = [[84, 75], [75, 65], [83, 81], [81, 81], [72, 80], [77, 82], [70, 71]]
 		# Z = np.vstack((X,Y))
