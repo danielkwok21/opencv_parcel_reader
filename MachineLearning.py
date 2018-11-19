@@ -1,17 +1,21 @@
 import numpy as np
 import cv2
+from Util import Util
 from matplotlib import pyplot as plt
+
+u = Util();
 
 class ML:
 	def kmeans(self, list, k):
+		print 'running kmeans...'
 		# X = [[34, 36], [47, 35] ,[47, 25], [25, 43], [29, 34], [37, 47], [30, 29]]
 		# Y = [[84, 75], [75, 65], [83, 81], [81, 81], [72, 80], [77, 82], [70, 71]]
 		# Z = np.vstack((X,Y))
 
 		# convert to np.float32
 		Z = list
-		Z = np.float32(Z)
-
+		flat_contours = [y for x in Z for y in x]
+		Z = np.float32(flat_contours)
 
 		# define criteria and apply kmeans()
 		criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
@@ -20,15 +24,27 @@ class ML:
 		# Now separate the data, Note the flatten()
 		categories = []
 		for i in range(k):
-			print i
 			categories.append(Z[label.ravel()==i])
 
 		# Plot the data
+		colours = ['r', 'g', 'b', 'b', 'y', 'p']
+		area = np.pi*3
+
+		# index = 0;
+		# for cat in categories:
+		# 	index+=1
+		# 	for i in range(len(cat)):
+		# 		x = Z[i][0][0]
+		# 		y = Z[i][0][1]
+		# 		# plt.scatter(x, y, s = area, c = colours[index])
+		# 		plt.scatter(x, y)
+		# 	plt.scatter(center[:,0],center[:,1],s = 80,c = 'b', marker = 's')
 
 		for cat in categories:
-			plt.scatter(cat[:,0],cat[:,1])
-			# plt.scatter(B[:,0],B[:,1],c = 'r')
-			plt.scatter(center[:,0],center[:,1],s = 80,c = 'y', marker = 's')
+			x = u.getCol(cat, 0)
+			y =  u.getCol(cat, 1)
+			plt.scatter(x, y)
+		plt.scatter(center[:,0],center[:,1],s = 80,c = 'b', marker = 's')
 
-		plt.xlabel('Height'),plt.ylabel('Weight')
+		plt.xlabel('inverted X'),plt.ylabel('Y')
 		plt.show()

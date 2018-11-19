@@ -8,7 +8,7 @@ ip = ImageProcessing()
 u = Util()
 ml = ML()
 
-ori = ip.read('samples/sample2.jpg')
+ori = ip.read('samples/sample1.jpg')
 ori = ip.resize(ori)
 img = ori
 
@@ -19,12 +19,14 @@ img = ip.detectEdges(img)
 
 kernel = numpy.ones((3,3), numpy.uint8)
 img = cv2.dilate(img, kernel, iterations=1)
-ip.displayImage(img)
 
 #get 200 smallest contours
 sensitivity = 200
 contours = ip.getTopContours(ip.getContours(img), sensitivity)
+# flat_contours = [y for x in contours for y in x]
+# u.writeToFile(flat_contours, 'flat_contours')
 
 ip.drawContours(ori, contours)
-ip.displayImage(ori)
-#ml.kmeans(flat_contours, 5)
+# ip.displayImage(ori)
+
+ml.kmeans(contours, 7)
