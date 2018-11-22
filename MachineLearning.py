@@ -27,24 +27,20 @@ class ML:
 			categories.append(Z[label.ravel()==i])
 
 		# Plot the data
-		colours = ['r', 'g', 'b', 'b', 'y', 'p']
-		area = np.pi*3
 
-		# index = 0;
-		# for cat in categories:
-		# 	index+=1
-		# 	for i in range(len(cat)):
-		# 		x = Z[i][0][0]
-		# 		y = Z[i][0][1]
-		# 		# plt.scatter(x, y, s = area, c = colours[index])
-		# 		plt.scatter(x, y)
-		# 	plt.scatter(center[:,0],center[:,1],s = 80,c = 'b', marker = 's')
+		# x = u.getCol(categories[0], 0)
+		# y = u.getCol(categories[0], 1)
+		# plt.scatter(x, y)
+
+		# x = u.getCol(categories[1], 0)
+		# y = u.getCol(categories[1], 1)
+		# plt.scatter(x, y)
 
 		for cat in categories:
 			x = u.getCol(cat, 0)
 			y =  u.getCol(cat, 1)
 			plt.scatter(x, y)
-		plt.scatter(center[:,0],center[:,1],s = 80,c = 'b', marker = 's')
+		# plt.scatter(center[:,0],center[:,1],s = 80,c = 'b', marker = 's')
 
-		plt.xlabel('inverted X'),plt.ylabel('Y')
+		plt.xlabel('X'),plt.ylabel('Y')
 		plt.show()
