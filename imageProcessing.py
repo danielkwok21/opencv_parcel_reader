@@ -51,10 +51,11 @@ class ImageProcessing:
 
 	def drawContours(self, img, contours):
 		cv2.drawContours(img, contours, -1, (0, 255, 0), 5)
+		return
 
 	def drawRects(self, img, contours):		
 		rects = []
-		for c in contours:
+		for c in self.contours:
 	        peri = cv2.arcLength(c, True)
 	        approx = cv2.approxPolyDP(c, 0.02 * peri, True)
 	        x, y, w, h = cv2.boundingRect(approx)
