@@ -23,10 +23,9 @@ img = cv2.dilate(img, kernel, iterations=1)
 #get 200 smallest contours
 sensitivity = 200
 contours = ip.getTopContours(ip.getContours(img), sensitivity)
-flat_contours = [y for x in contours for y in x]
-u.writeToFile(flat_contours, 'flat_contours')
-
-# ip.drawContours(ori, contours)
+u.writeToFile(contours, 'contours')
+# flat_contours = [y for x in contours for y in x]
+# u.writeToFile(flat_contours, 'flat_contours')
 
 # drawrect
 rects = []
@@ -35,10 +34,34 @@ for c in contours:
     approx = cv2.approxPolyDP(c, 0.02 * peri, True)
     x, y, w, h = cv2.boundingRect(approx)
     
-    rect = (x, y, w, h)
-    rects.append(rect)
+    rects.append([x, y, x+w, y+h])
     cv2.rectangle(ori, (x, y), (x+w, y+h), (0, 255, 0), 1);
+
+print rects
+
+xs = []
+ys = []
+ws = []
+hs = []
+for rect in rects:
+	x, y, w, h = rect
+	xs.append(x);
+	ys.append(y);
+	ws.append(w);
+	hs.append(h);
+
+left = min(xs)
+top = min(ys)
+right = max(ws)
+bottom = max(hs)
+
+print left
+print top
+print right
+print bottom
+
+cv2.rectangle(ori, (left,top), (right,bottom), (255, 0, 0), 2)
 
 ip.displayImage(ori);
 
-ml.kmeans(contours, 5)
+# ml.kmeans(contours, 5)
