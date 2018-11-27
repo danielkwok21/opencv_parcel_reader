@@ -4,16 +4,18 @@ import MachineLearning as ml
 import numpy
 import cv2
 
-ori = ip.read('samples/sample.png')
-# ori = ip.resize(ori)
+ori = cv2.imread('samples/sample.jpg')
+ori = ip.resize(ori)
 img = ori
+ip.displayImage(img)
 
-img = ip.blur(img)
-img = ip.grayScale(img)
+img = cv2.blur(img, (5,5))
+img = ip.cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 binary = ip.binarize(img)
-img = ip.detectEdges(img)
+img = cv2.Canny(img, 100, 200)
 
 img = ip.dilate(img, 5)
+ip.displayImage(img)
 
 #get 200 smallest contours
 sensitivity = 200
@@ -23,7 +25,7 @@ u.writeToFile(contours, 'contours')
 left, top, right, bottom = ip.drawRects(ori, contours)
 
 cropped = img[top:bottom, left:right]
-ip.displayImage("cropped", cropped)
+ip.displayImage(cropped, "cropped")
 
 # ml.kmeans(contours, 5)
 

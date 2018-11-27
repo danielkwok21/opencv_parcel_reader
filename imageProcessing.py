@@ -1,43 +1,27 @@
 import cv2
 import numpy
 
-def read(path):
-	return cv2.imread(path)
-
-def displayImage(option, img):
+def displayImage(img, option="Image"):
 	cv2.imshow(option, img)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
 	return
 
-def erode(img):
-	kernel = numpy.ones((3,3), numpy.uint8)
+def erode(img, x):
+	kernel = numpy.ones((x,x), numpy.uint8)
 	return cv2.erode(img, kernel, iterations=1)
 
 def dilate(img, x):
 	kernel = numpy.ones((x,x), numpy.uint8)
 	return cv2.dilate(img, kernel, iterations=1)
 	
-def grayScale(img):
-	return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-def blur(img):
-	return cv2.blur(img, (5,5))
-
-def complement(img):
-	return cv2.bitwise_not(img)
-
-def resize(img):
-	return cv2.resize(img, (0,0), fx=0.3, fy=0.3) 
+def resize(img, factor=0.3):
+	return cv2.resize(img, (0,0), fx=factor, fy=factor) 
 
 def binarize(img):
 	(thresh, binary) = cv2.threshold(img, 127, 255, cv2.THRESH_OTSU)
 	return binary
-	# return cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)[1]
-
-def detectEdges(img):
-	return cv2.Canny(img, 100, 200)
-
 # binarizes image and returns contours
 def getContours(img):
 	temp = img
