@@ -4,7 +4,7 @@ import MachineLearning as ml
 import numpy
 import cv2
 
-ori = cv2.imread('samples/sample2.jpg')
+ori = cv2.imread('samples/sample3.jpg')
 ori = ip.resize(ori, 0.4)
 img = ori
 ip.displayImage(img)
