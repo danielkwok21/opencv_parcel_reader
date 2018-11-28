@@ -21,11 +21,11 @@ def resize(img, factor=0.3):
 
 def binarize(img):
 	(thresh, binary) = cv2.threshold(img, 127, 255, cv2.THRESH_OTSU)
-	return binary
+	return (thresh, binary)
 # binarizes image and returns contours
 def getContours(img):
 	temp = img
-	ret, thresh = cv2.threshold(temp, 127, 255, 0)
+	ret, thresh = binarize(temp)
 	contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 	return contours
 
