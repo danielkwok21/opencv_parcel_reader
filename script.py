@@ -10,7 +10,7 @@ ori = ip.resize(ori, 0.3)
 img = ori
 ip.displayImage(img)
 
-img = cv2.blur(img, (7,7))
+img = cv2.bilateralFilter(img, 9, 75, 75)
 img = ip.cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 thresh, img = ip.binarize(img)
 ip.displayImage(img)
