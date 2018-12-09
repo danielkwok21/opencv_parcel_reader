@@ -5,36 +5,34 @@ import numpy
 import cv2
 import math
 
-ori = cv2.imread('samples/sample11.jpg')
-ori = ip.resize(ori, 0.3)
+ori = cv2.imread('samples/sample0.jpg')
 img = ori
-ip.displayImage(img)
 
-img = cv2.blur(img, (7,7))
 img = ip.cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 thresh, img = ip.binarize(img)
-ip.displayImage(img)
+img = cv2.bilateralFilter(img,9,100,100)
+temp = ip.resize(img, 0.3);
+ip.displayImage(temp);
 
 img = cv2.Canny(img, 150, 200)
-ip.displayImage(img)
-
-img = ip.dilate(img, 5)
-ip.displayImage(img)
+img = ip.dilate(img, 10)
+temp = ip.resize(img, 0.3);
+ip.displayImage(temp);
 
 #get x amount of smallest contours
 contours = ip.getContours(img)
-x = len(contours)
-print x
+# x = len(contours)
+# sensitivity = int(numpy.ceil(x/2))
+# print sensitivity
 
-sensitivity = int(numpy.ceil(x/4))
-print sensitivity
-
-contours = ip.getTopContours(contours, sensitivity)
+# contours = ip.getTopContours(contours, sensitivity)
 u.writeToFile(contours, 'contours')
 
 left, top, right, bottom = ip.drawRects(ori, contours)
 
 cropped = ori[top:bottom, left:right]
+
+cropped = ip.resize(cropped, 0.3)
 ip.displayImage(cropped, "cropped")
 
 # ml.kmeans(contours, 5)
