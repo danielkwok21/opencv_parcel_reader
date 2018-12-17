@@ -7,21 +7,21 @@ def displayImage(img, option="Image"):
 	cv2.destroyAllWindows()
 	return
 
-def erode(img, x):
-	kernel = numpy.ones((x,x), numpy.uint8)
-	return cv2.erode(img, kernel, iterations=1)
+def erode(img, i):
+	kernel = numpy.ones((3,3), numpy.uint8)
+	return cv2.erode(img, kernel, iterations=i)
 
-def dilate(img, x):
-	kernel = numpy.ones((x,x), numpy.uint8)
-	return cv2.dilate(img, kernel, iterations=1)
+def dilate(img, i):
+	kernel = numpy.ones((3,3), numpy.uint8)
+	return cv2.dilate(img, kernel, iterations=i)
 	
-
 def resize(img, factor=0.3):
 	return cv2.resize(img, (0,0), fx=factor, fy=factor) 
 
 def binarize(img):
 	(thresh, binary) = cv2.threshold(img, 200, 255, cv2.THRESH_OTSU)
 	return (thresh, binary)
+
 # binarizes image and returns contours
 def getContours(img):
 	temp = img
@@ -29,8 +29,17 @@ def getContours(img):
 	contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 	return contours
 
-def getTopContours(contours, sensitivity):
-	return sorted(contours, key = cv2.contourArea)[:sensitivity]
+def removeBigContours(contours):
+	newContours = []
+	totalArea = 0
+	for c in contours:
+		totalArea = totalArea+cv2.contourArea(c)
+	aveArea = totalArea/len(contours)
+	for c in contours:
+		if cv2.contourArea(c)<=aveArea:
+			newContours.append(c)
+	return newContours
+
 
 def drawContours(img, contours):
 	cv2.drawContours(img, contours, -1, (0, 255, 0), 5)
