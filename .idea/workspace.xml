@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7878b48e-ad96-4af3-9cda-b57ee1cdcc17" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ImageProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ImageProcessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postVisionAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/postVisionAPI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/preVisionAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/preVisionAPI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/samples/binSample2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/samples/binSample2.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/samples/cropped.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/samples/wordObjects.json" beforeDir="false" afterPath="$PROJECT_DIR$/samples/wordObjects.json" afterDir="false" />
-    </list>
+    <list default="true" id="7878b48e-ad96-4af3-9cda-b57ee1cdcc17" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,14 +54,14 @@
         <counts>
           <entry key="dummy" value="23" />
           <entry key="json" value="5" />
-          <entry key="py" value="2113" />
+          <entry key="py" value="2122" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="5" />
           <entry key="PLAIN_TEXT" value="23" />
-          <entry key="Python" value="2113" />
+          <entry key="Python" value="2122" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -100,7 +92,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/postVisionAPI.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="94">
@@ -121,14 +113,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ImageProcessing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="23" column="45" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
+            <state relative-caret-position="59">
+              <caret line="15" column="9" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <marker date="1545154195309" expanded="true" signature="1148:1150" ph="..." />
+                <marker date="1545154247220" expanded="true" signature="1148:1150" ph="..." />
               </folding>
             </state>
           </provider>
@@ -260,10 +252,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="697" y="0" width="1230" height="1047" extended-state="0" />
+    <frame x="953" y="0" width="974" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18120806" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23076923" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -296,20 +288,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/script2.py" />
     <entry file="file://$PROJECT_DIR$/samples/postVisionAPI.py" />
-    <entry file="file://$PROJECT_DIR$/postVisionAPI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/samples/wordObjects.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
           <caret line="5460" column="13" selection-start-line="5460" selection-start-column="13" selection-end-line="5460" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ImageProcessing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="59">
+          <caret line="15" column="9" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+            <marker date="1545154247220" expanded="true" signature="1148:1150" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -323,13 +316,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ImageProcessing.py">
+    <entry file="file://$PROJECT_DIR$/postVisionAPI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="23" column="45" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
+        <state relative-caret-position="94">
+          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
-            <marker date="1545154195309" expanded="true" signature="1148:1150" ph="..." />
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
