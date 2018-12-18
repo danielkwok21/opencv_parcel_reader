@@ -1,6 +1,6 @@
 [
     {
-        "string": "of 2-412\nhanghai\nTel: +86(021)89351937\nDCT 20 Zipcode:201901\nReceiver Reference:\nTo:\nDIO\nReceiver nam\nAddress:\nBrandon Ho Xian Jun\nThe university of Nottingham malaysia\ncampus, Jalan Broga,, Semenyih, Selan\ngor\n43500\n",
+        "string": "of 2-412\nhanghai\nTel: +86(021)89351937\n10 OCT 20 zipcode:201901\nReceiver Reference:\nTo:\nDIO\nReceiver nam\nAddress:\nBrandon Ho Xian Jun\nThe university of Nottingham malaysia\ncampus, Jalan Broga,, Semenyih, Selan\ngor\n43500\n",
         "vertices": [
             {
                 "x": 985,
@@ -41,7 +41,7 @@
                 "y": 131
             }
         ],
-        "field": "location"
+        "field": ""
     },
     {
         "string": "2",
@@ -308,22 +308,44 @@
         "field": ""
     },
     {
-        "string": "DCT",
+        "string": "10",
         "vertices": [
             {
-                "x": 1928,
+                "x": 1768,
                 "y": 1033
             },
             {
-                "x": 2036,
+                "x": 1869,
                 "y": 1033
             },
             {
-                "x": 2036,
+                "x": 1869,
                 "y": 1102
             },
             {
-                "x": 1928,
+                "x": 1768,
+                "y": 1102
+            }
+        ],
+        "field": ""
+    },
+    {
+        "string": "OCT",
+        "vertices": [
+            {
+                "x": 1914,
+                "y": 1033
+            },
+            {
+                "x": 2022,
+                "y": 1033
+            },
+            {
+                "x": 2022,
+                "y": 1102
+            },
+            {
+                "x": 1914,
                 "y": 1102
             }
         ],
@@ -333,41 +355,41 @@
         "string": "20",
         "vertices": [
             {
-                "x": 2059,
+                "x": 2036,
                 "y": 1033
             },
             {
-                "x": 2110,
+                "x": 2099,
                 "y": 1033
             },
             {
-                "x": 2110,
+                "x": 2099,
                 "y": 1102
             },
             {
-                "x": 2059,
+                "x": 2036,
                 "y": 1102
             }
         ],
         "field": ""
     },
     {
-        "string": "Zipcode",
+        "string": "zipcode",
         "vertices": [
             {
-                "x": 2156,
+                "x": 2129,
                 "y": 1033
             },
             {
-                "x": 2334,
+                "x": 2340,
                 "y": 1033
             },
             {
-                "x": 2334,
+                "x": 2340,
                 "y": 1102
             },
             {
-                "x": 2156,
+                "x": 2129,
                 "y": 1102
             }
         ],
@@ -377,19 +399,19 @@
         "string": ":",
         "vertices": [
             {
-                "x": 2341,
+                "x": 2334,
                 "y": 1033
             },
             {
-                "x": 2361,
+                "x": 2354,
                 "y": 1033
             },
             {
-                "x": 2361,
+                "x": 2354,
                 "y": 1102
             },
             {
-                "x": 2341,
+                "x": 2334,
                 "y": 1102
             }
         ],
@@ -399,19 +421,19 @@
         "string": "201901",
         "vertices": [
             {
-                "x": 2358,
+                "x": 2351,
                 "y": 1033
             },
             {
-                "x": 2544,
+                "x": 2530,
                 "y": 1033
             },
             {
-                "x": 2544,
+                "x": 2530,
                 "y": 1102
             },
             {
-                "x": 2358,
+                "x": 2351,
                 "y": 1102
             }
         ],
@@ -745,7 +767,7 @@
                 "y": 1432
             }
         ],
-        "field": "location"
+        "field": ""
     },
     {
         "string": "university",
@@ -789,7 +811,7 @@
                 "y": 1402
             }
         ],
-        "field": "location"
+        "field": ""
     },
     {
         "string": "Nottingham",
@@ -1054,27 +1076,5 @@
             }
         ],
         "field": ""
-    },
-    {
-        "string": "43500",
-        "vertices": [
-            {
-                "x": 2644,
-                "y": 1561
-            },
-            {
-                "x": 3036,
-                "y": 1583
-            },
-            {
-                "x": 3032,
-                "y": 1670
-            },
-            {
-                "x": 2639,
-                "y": 1648
-            }
-        ],
-        "field": "location"
     }
 ]

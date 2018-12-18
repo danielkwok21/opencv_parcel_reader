@@ -9,8 +9,10 @@ from matplotlib import pyplot as plt
 ori = cv2.imread('samples/sample0.jpg')
 img = ori
 
-wordObjects = json.load(open('samples/wordObjects.json'))
+width, height = ori.shape[:2]
+blank = numpy.zeros((width, height, 3), numpy.uint8)
 
+wordObjects = json.load(open('samples/wordObjects.json'))
 
 for w in wordObjects:
 	if w['field']!='':		
@@ -26,21 +28,22 @@ for w in wordObjects:
 		bottomRight = (x2, y2)
 
 		# draw rect from json	
-		cv2.rectangle(img, topLeft, bottomRight, (0,255,0), 3)
+		cv2.rectangle(blank, topLeft, bottomRight, (255, 0, 0), 3)
 
 		#find centroid
 		mid_x = (x1+x2)/2
 		mid_y = (y1+y2)/2
+		centroid = (mid_x, mid_y)
 
-		cv2.circle(img, (mid_x, mid_y), 6, (255,0,0), -1)
-
-		# plot centroids w diff colour according to fields
-		if(w['field']=='location'):
-			plt.scatter(mid_x,mid_y,20,'b','o')
-		elif(w['field']=='person'):
-			plt.scatter(mid_x,mid_y,20,'g','o')
+		cv2.circle(blank, centroid, 6, (255, 0, 0), -1)
 
 
-img = ip.resize(img, 0.35)
-ip.displayImage(img)
-plt.show()
+blank = ip.resize(blank, 0.3)
+ip.displayImage(blank)
+
+center, rect, angle, box = ip.getMinAreaRect(blank)
+cv2.drawContours(blank, box, 0, (0, 0, 255), 2)
+ip.displayImage(blank, 'minRect')
+
+ip.displayImage(ip.rotateImage(blank, angle), 'rotated')
+
