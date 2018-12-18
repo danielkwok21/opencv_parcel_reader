@@ -6,7 +6,7 @@ import cv2
 import json
 from matplotlib import pyplot as plt
 
-ori = cv2.imread('samples/sample2.jpg')
+ori = cv2.imread('samples/sample0.jpg')
 img = ori
 
 width, height = ori.shape[:2]
@@ -37,13 +37,13 @@ for w in wordObjects:
 		centroid = (mid_x, mid_y)
 
 		cv2.circle(blank, centroid, 6, (255, 0, 0), -1)
-		cv2.rectangle(img, topLeft, bottomRight, (255, 0, 0), 3)
+		cv2.circle(img, centroid, 6, (255, 0, 0), -1)
 
-temp = ip.resize(img, 0.3)
-ip.displayImage(temp)
+img = ip.resize(img, 0.3)
+# ip.displayImage(img)
 
 blank = ip.resize(blank, 0.3)
-ip.displayImage(blank)
+# ip.displayImage(blank)
 
 center, rect, angle, box = ip.getMinAreaRect(blank)
 cv2.drawContours(blank, box, 0, (0, 0, 255), 2)

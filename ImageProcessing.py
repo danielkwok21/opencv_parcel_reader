@@ -19,7 +19,7 @@ def resize(img, factor=0.3):
 	return cv2.resize(img, (0,0), fx=factor, fy=factor) 
 
 def binarize(img):
-	(thresh, binary) = cv2.threshold(img, 127, 255, cv2.THRESH_OTSU)
+	(thresh, binary) = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY_INV)
 	return (thresh, binary)
 
 # binarizes image and returns editedImage, contours, and hierarchy
