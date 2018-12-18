@@ -1,5 +1,6 @@
 import cv2
 import numpy
+import math
 
 def displayImage(img, option="Image"):
 	cv2.imshow(option, img)
@@ -16,16 +17,21 @@ def dilate(img, x):
 	return cv2.dilate(img, kernel, iterations=1)
 
 def resize(img, factor=0.3):
-	return cv2.resize(img, (0,0), fx=factor, fy=factor) 
+	temp = img
+	return cv2.resize(temp, (0,0), fx=factor, fy=factor)
 
 def binarize(img):
 	(thresh, binary) = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY_INV)
 	return (thresh, binary)
 
+def binarize2(img):
+	(thresh, binary) = cv2.threshold(img, 127, 255, cv2.THRESH_OTSU)
+	return (thresh, binary)
+
 # binarizes image and returns editedImage, contours, and hierarchy
 def getContours(img):
 	temp = img
-	ret, thresh = binarize(temp)
+	ret, thresh = binarize2(temp)
 	img2, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 	return img2, contours, hierarchy
 
@@ -51,7 +57,6 @@ def rotateImage(img, angle):
 def getMinAreaRect(img):
 	img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	img2, contours, hierarchy = getContours(img)
-
 	contours = numpy.concatenate(contours)
 	center, rect, angle = cv2.minAreaRect(contours)
 	minRect = (center, rect, angle)

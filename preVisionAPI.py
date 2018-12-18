@@ -14,7 +14,7 @@ img = cv2.bilateralFilter(img, 9, 75, 75)
 img = ip.cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 thresh, img = ip.binarize(img)
 
-img = ip.resize(img, 0.3)
-ip.displayImage(img)
+temp = ip.resize(img, 0.3)
+ip.displayImage(temp)
 
 cv2.imwrite('samples/binSample2.jpg', img)

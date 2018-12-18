@@ -6,7 +6,7 @@ import cv2
 import json
 from matplotlib import pyplot as plt
 
-ori = cv2.imread('samples/sample0.jpg')
+ori = cv2.imread('samples/sample2.jpg')
 img = ori
 
 width, height = ori.shape[:2]
@@ -16,6 +16,8 @@ wordObjects = json.load(open('samples/wordObjects.json'))
 
 for w in wordObjects:
 	if w['field']!='':
+		print w['string']
+
 		# topleft
 		x1 = w['vertices'][3]['x']
 		y1 = w['vertices'][3]['y']
@@ -39,15 +41,12 @@ for w in wordObjects:
 		cv2.circle(blank, centroid, 6, (255, 0, 0), -1)
 		cv2.circle(img, centroid, 6, (255, 0, 0), -1)
 
-img = ip.resize(img, 0.3)
-# ip.displayImage(img)
-
-blank = ip.resize(blank, 0.3)
-# ip.displayImage(blank)
-
 center, rect, angle, box = ip.getMinAreaRect(blank)
-cv2.drawContours(blank, box, 0, (0, 0, 255), 2)
-ip.displayImage(blank, 'minRect')
+cv2.drawContours(blank, box, 0, (0, 0, 255), 5)
+temp = ip.resize(blank, 0.3)
+ip.displayImage(temp, 'minRect')
 
-ip.displayImage(ip.rotateImage(img, angle), 'rotated')
+img = ip.rotateImage(img, angle)
+temp = ip.resize(img, 0.3)
+ip.displayImage(temp, 'rotated')
 
