@@ -3,13 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7878b48e-ad96-4af3-9cda-b57ee1cdcc17" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ImageProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ImageProcessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postVisionAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/postVisionAPI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/preVisionAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/preVisionAPI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/samples/binSample2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/samples/sample32.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/samples/test.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/samples/wordObjects.json" beforeDir="false" afterPath="$PROJECT_DIR$/samples/wordObjects.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/hsv/v.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/samples/hsv/v.jpg" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,26 +48,26 @@
           <entry key="project.closed" value="14" />
           <entry key="project.open.time.13" value="4" />
           <entry key="project.open.time.15" value="1" />
-          <entry key="project.open.time.16" value="3" />
+          <entry key="project.open.time.16" value="4" />
           <entry key="project.open.time.20" value="3" />
           <entry key="project.open.time.23" value="1" />
           <entry key="project.open.time.25" value="1" />
           <entry key="project.open.time.27" value="1" />
-          <entry key="project.opened" value="14" />
+          <entry key="project.opened" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="23" />
           <entry key="json" value="6" />
-          <entry key="py" value="5130" />
+          <entry key="py" value="5458" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="6" />
           <entry key="PLAIN_TEXT" value="23" />
-          <entry key="Python" value="5130" />
+          <entry key="Python" value="5458" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -96,8 +91,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/preVisionAPI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="42" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
+            <state relative-caret-position="51">
+              <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -108,11 +103,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ImageProcessing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="4" column="34" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
-              <folding>
-                <element signature="e#2010#2560#0" />
-              </folding>
+            <state relative-caret-position="204">
+              <caret line="104" column="31" selection-start-line="97" selection-start-column="17" selection-end-line="104" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -154,9 +146,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="953" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
+    <option name="x" value="583" />
+    <option name="width" value="790" />
+    <option name="height" value="735" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -173,6 +165,17 @@
             <path>
               <item name="OpenCV" type="b2602c69:ProjectViewProjectNode" />
               <item name="OpenCV" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenCV" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenCV" type="462c0819:PsiDirectoryNode" />
+              <item name="samples" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenCV" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenCV" type="462c0819:PsiDirectoryNode" />
+              <item name="samples" type="462c0819:PsiDirectoryNode" />
+              <item name="hsv" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -242,15 +245,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="953" y="0" width="974" height="1047" extended-state="0" />
+    <frame x="583" y="0" width="790" height="735" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20299146" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2526596" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.28258488" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.281198" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39978093" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -300,18 +303,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ImageProcessing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="4" column="34" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
-          <folding>
-            <element signature="e#2010#2560#0" />
-          </folding>
+        <state relative-caret-position="204">
+          <caret line="104" column="31" selection-start-line="97" selection-start-column="17" selection-end-line="104" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/preVisionAPI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="42" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
+        <state relative-caret-position="51">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
