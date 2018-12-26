@@ -2,7 +2,7 @@ import cv2
 import numpy
 import math
 
-def displayImage(img, option="Image"):
+def displayImage(img, option="name"):
 	cv2.imshow(option, img)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
@@ -21,7 +21,7 @@ def resize(img, factor=0.3):
 	return cv2.resize(temp, (0,0), fx=factor, fy=factor)
 
 def binarize(img):
-	(thresh, binary) = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY_INV)
+	(thresh, binary) = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
 	return (thresh, binary)
 
 def binarize2(img):
@@ -94,3 +94,85 @@ def drawRects(img, contours):
 
 	cv2.rectangle(img, (left,top), (right,bottom), (255, 0, 0), 2)
 	return left, top, right, bottom
+
+def rgb2hsv(img):
+	img = numpy.asarray(img)
+	col = len(img)
+	row = len(img[0])
+
+	for i in range(col):
+		for j in range(row):
+			b, g, r = img[i][j]
+
+			_g = g/255.0
+			_r = r/255.0
+			_b = b/255.0
+			cmax = max([_b, _g, _r])
+			cmin = min([_b, _g, _r])
+			delta = cmax-cmin
+
+			# hue
+			if delta == 0:
+				hue = 0
+			else:
+				switcher = {
+					_b: 60 * ((_r - _g) / delta + 4),
+					_g: 60 * ((_b - _r) / delta + 2),
+					_r: 60 * (((_g - _b) / delta) % 6)
+				}
+				hue = switcher.get(cmax)
+
+			# saturation
+			if cmax==0:
+				sat = 0
+			else:
+				sat = delta/cmax
+
+			# value
+			val = cmax
+			img[i][j] = [hue, sat, val]
+
+	return img
+
+def hsv2rgb(img):
+	h, s, v = cv2.split(img)
+	c = v*s
+	x = c*(1-abs((h/60)%2-1))
+	m = v-c
+
+	print h
+
+	if h in range(0, 60):
+		_v = (c, 0, x)
+	elif h in range(60, 120):
+		_v = (x, c, 0)
+	elif h in range(120, 180):
+		_v = (0, x, c)
+	elif h in range(180, 240):
+		_v = (0, x, c)
+	elif h in range(240, 300):
+		_v = (x, 0, c)
+	else:
+		_v = (c, 0, x)
+
+	(_r, _g, _b) = _v
+
+	(r, g, b) = ((_r+m)*255, (_g+m)*255, (_b+m)*255)
+
+	img = (r, g, b)
+
+	return img
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,20 +1,33 @@
 import ImageProcessing as ip
-import Util as u
-import MachineLearning as ml
-import numpy
 import cv2
-import math
+import numpy as np
 
-ori = cv2.imread('samples/sample2.jpg')
+# load ori image
+ori = cv2.imread('samples/sample2.jpg', cv2.IMREAD_COLOR)
 img = ori
 temp = ip.resize(img, 0.3)
-ip.displayImage(temp)
+ip.displayImage(temp, 'ori')
 
-img = cv2.bilateralFilter(img, 9, 75, 75)
-img = ip.cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-thresh, img = ip.binarize(img)
+# change from bgr to lab
+img = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
 
+# extract l channel
+l, a, b = cv2.split(img)
+
+# adaptive histogram equalization
+clahe = cv2.createCLAHE(clipLimit=3, tileGridSize=(4,4))
+cl = clahe.apply(l)
+
+# remerge to create new lab
+img = cv2.merge((cl, a, b))
+
+# convert lab to rgb
+img = cv2.cvtColor(img, cv2.COLOR_LAB2BGR)
 temp = ip.resize(img, 0.3)
-ip.displayImage(temp)
+ip.displayImage(temp, 'rgb')
 
-cv2.imwrite('samples/binSample2.jpg', img)
+# convert rgb to hsv (to remove orange words)
+img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+h, s, v = cv2.split(img)
+temp = ip.resize(v, 0.3)
+ip.displayImage(temp, 'v')

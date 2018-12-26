@@ -6,7 +6,7 @@ import cv2
 import json
 from matplotlib import pyplot as plt
 
-ori = cv2.imread('samples/sample2.jpg')
+ori = cv2.imread('samples/sample3.jpg')
 img = ori
 
 width, height = ori.shape[:2]
