@@ -1,7 +1,6 @@
 import numpy as np
 import cv2
 import Util as u
-from matplotlib import pyplot as plt
 
 def kmeans(list, k):
 	print 'running kmeans...'

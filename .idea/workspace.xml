@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7878b48e-ad96-4af3-9cda-b57ee1cdcc17" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ImageProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/ImageProcessing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MachineLearning.py" beforeDir="false" afterPath="$PROJECT_DIR$/MachineLearning.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Util.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postVisionAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/postVisionAPI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/preVisionAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/preVisionAPI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/hsv/hls_v.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/hsv/hsv_v.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/hsv/v.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/wordObjects.json" beforeDir="false" afterPath="$PROJECT_DIR$/samples/wordObjects.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,43 +52,46 @@
     <session id="-821671269">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="14" />
+          <entry key="project.closed" value="18" />
           <entry key="project.open.time.13" value="4" />
+          <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.16" value="4" />
-          <entry key="project.open.time.20" value="3" />
+          <entry key="project.open.time.17" value="1" />
+          <entry key="project.open.time.19" value="1" />
+          <entry key="project.open.time.20" value="4" />
           <entry key="project.open.time.23" value="1" />
           <entry key="project.open.time.25" value="1" />
           <entry key="project.open.time.27" value="1" />
-          <entry key="project.opened" value="15" />
+          <entry key="project.opened" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="23" />
           <entry key="json" value="6" />
-          <entry key="py" value="5498" />
+          <entry key="py" value="6513" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="6" />
           <entry key="PLAIN_TEXT" value="23" />
-          <entry key="Python" value="5498" />
+          <entry key="Python" value="6513" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="jpg" value="2" />
-          <entry key="json" value="3" />
-          <entry key="py" value="13" />
+          <entry key="jpg" value="6" />
+          <entry key="json" value="6" />
+          <entry key="py" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Image" value="2" />
-          <entry key="JSON" value="3" />
-          <entry key="Python" value="13" />
+          <entry key="Image" value="6" />
+          <entry key="JSON" value="6" />
+          <entry key="Python" value="18" />
         </counts>
       </usages-collector>
     </session>
@@ -87,10 +99,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/preVisionAPI.py">
+        <entry file="file://$PROJECT_DIR$/postVisionAPI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="18" column="54" selection-start-line="18" selection-start-column="54" selection-end-line="18" selection-end-column="54" />
+            <state relative-caret-position="252">
+              <caret line="28" column="128" selection-start-line="28" selection-start-column="128" selection-end-line="28" selection-end-column="128" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -99,10 +111,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ImageProcessing.py">
+        <entry file="file://$PROJECT_DIR$/samples/wordObjects.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="104" column="31" selection-start-line="97" selection-start-column="17" selection-end-line="104" selection-end-column="31" />
+            <state relative-caret-position="68">
+              <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -122,9 +134,12 @@
       <find>menerima</find>
       <find>TOVEmal</find>
       <find>0.2</find>
+      <find>numpy</find>
+      <find>rotateI</find>
     </findStrings>
     <replaceStrings>
       <replace>0.3</replace>
+      <replace>np</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -136,17 +151,20 @@
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/imageProcessing.py" />
         <option value="$PROJECT_DIR$/script.py" />
-        <option value="$PROJECT_DIR$/postVisionAPI.py" />
-        <option value="$PROJECT_DIR$/samples/wordObjects.json" />
+        <option value="$PROJECT_DIR$/Util.py" />
         <option value="$PROJECT_DIR$/ImageProcessing.py" />
         <option value="$PROJECT_DIR$/preVisionAPI.py" />
+        <option value="$PROJECT_DIR$/MachineLearning.py" />
+        <option value="$PROJECT_DIR$/samples/wordObjects.json" />
+        <option value="$PROJECT_DIR$/postVisionAPI.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="583" />
-    <option name="width" value="790" />
-    <option name="height" value="735" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="425" />
+    <option name="y" value="64" />
+    <option name="width" value="1044" />
+    <option name="height" value="514" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -169,12 +187,6 @@
               <item name="OpenCV" type="462c0819:PsiDirectoryNode" />
               <item name="samples" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="OpenCV" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenCV" type="462c0819:PsiDirectoryNode" />
-              <item name="samples" type="462c0819:PsiDirectoryNode" />
-              <item name="hsv" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -186,6 +198,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Code\Python\OpenCV\samples\hsv" />
       <recent name="D:\Code\Python\try" />
     </key>
   </component>
@@ -214,7 +227,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/preVisionAPI.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/postVisionAPI.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -243,15 +256,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="583" y="0" width="790" height="735" extended-state="0" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2526596" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.140625" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.281198" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3294509" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3409836" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39978093" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -279,37 +292,67 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/script2.py" />
     <entry file="file://$PROJECT_DIR$/samples/postVisionAPI.py" />
-    <entry file="file://$PROJECT_DIR$/samples/sample3.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/samples/sample2.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/postVisionAPI.py">
+    <entry file="file://$PROJECT_DIR$/samples/sample1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/samples/sample3.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Util.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/samples/wordObjects.json">
+    <entry file="file://$PROJECT_DIR$/MachineLearning.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="573">
-          <caret line="2465" column="1" selection-start-line="2465" selection-start-column="1" selection-end-line="2465" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ImageProcessing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="104" column="31" selection-start-line="97" selection-start-column="17" selection-end-line="104" selection-end-column="31" />
+        <state relative-caret-position="34">
+          <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/preVisionAPI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="18" column="54" selection-start-line="18" selection-start-column="54" selection-end-line="18" selection-end-column="54" />
+        <state relative-caret-position="221">
+          <caret line="16" selection-start-line="16" selection-end-line="18" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ImageProcessing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="167" column="12" selection-start-line="164" selection-end-line="185" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python27/Lib/json/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="286" selection-start-line="286" selection-end-line="286" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/samples/wordObjects.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/postVisionAPI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="28" column="128" selection-start-line="28" selection-start-column="128" selection-end-line="28" selection-end-column="128" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>

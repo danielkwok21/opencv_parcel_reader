@@ -1,5 +1,5 @@
 import cv2
-import numpy
+import numpy as np
 import math
 
 def displayImage(img, option="name"):
@@ -9,11 +9,11 @@ def displayImage(img, option="name"):
 	return
 
 def erode(img, x):
-	kernel = numpy.ones((x,x), numpy.uint8)
+	kernel = np.ones((x,x), np.uint8)
 	return cv2.erode(img, kernel, iterations=1)
 
 def dilate(img, x):
-	kernel = numpy.ones((x,x), numpy.uint8)
+	kernel = np.ones((x,x), np.uint8)
 	return cv2.dilate(img, kernel, iterations=1)
 
 def resize(img, factor=0.3):
@@ -49,7 +49,7 @@ def rotateImage(img, angle):
 	(h, w) = img.shape[:2]
 	center = (w // 2, h // 2)
 	M = cv2.getRotationMatrix2D(center, angle, 1.0)
-	rotated = cv2.warpAffine(img, M, (w, h), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
+	rotated = cv2.warpAffine(img, M, (w, h), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_TRANSPARENT)
 	return rotated
 
 # takes in coloured image
@@ -57,11 +57,11 @@ def rotateImage(img, angle):
 def getMinAreaRect(img):
 	img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	img2, contours, hierarchy = getContours(img)
-	contours = numpy.concatenate(contours)
+	contours = np.concatenate(contours)
 	center, rect, angle = cv2.minAreaRect(contours)
 	minRect = (center, rect, angle)
 	box = cv2.boxPoints(minRect)
-	box = numpy.int0(box)
+	box = np.int0(box)
 	return center, rect, angle, [box]
 
 # draw rectangle around contours, return left, top, right and bottom
@@ -96,7 +96,7 @@ def drawRects(img, contours):
 	return left, top, right, bottom
 
 def rgb2hsv(img):
-	img = numpy.asarray(img)
+	img = np.asarray(img)
 	col = len(img)
 	row = len(img[0])
 
@@ -163,8 +163,23 @@ def hsv2rgb(img):
 
 	return img
 
+def rotateBound(img, angle):
+	h, w, c = img.shape
+	cx = w/2
+	cy = h/2
+	center = (cx, cy)
 
+	M = cv2.getRotationMatrix2D(center, -angle, 1.0)
+	cos = np.abs(M[0, 0])
+	sin = np.abs(M[0, 1])
 
+	_w = int((h*sin)+(w*cos))
+	_h = int((h*cos)+(w*sin))
+
+	M[0, 2] += (_w/2)-cx
+	M[1, 2] += (_h/2)-cy
+
+	return cv2.warpAffine(img, M, (_w, _h))
 
 
 

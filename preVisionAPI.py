@@ -1,25 +1,25 @@
 import ImageProcessing as ip
+import Util as u
+import numpy
 import cv2
-import numpy as np
 
-# load ori image
-ori = cv2.imread('samples/sample2.jpg', cv2.IMREAD_COLOR)
+ori = cv2.imread('samples/sample1.jpg', cv2.IMREAD_COLOR)
 img = ori
 
-# change from bgr to hls
-img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+# rotate image
+h, w, c = img.shape
+print h
+print w
+print c
 
-# extract l channel
-h, s, v = cv2.split(img)
+temp = ip.resize(img, 0.3)
+ip.displayImage(temp)
 
-temp = ip.resize(v, 0.3)
-ip.displayImage(temp, 'v')
+if h > w:
+	img = ip.rotateBound(img, 90)
 
-# adaptive histogram equalization
-clahe = cv2.createCLAHE(clipLimit=2, tileGridSize=(4,4))
-cl = clahe.apply(v)
+temp = ip.resize(img, 0.3)
+ip.displayImage(temp)
 
-temp = ip.resize(cl, 0.3)
-ip.displayImage(temp, 'cl')
+print 'PreVision script done.'
 
-cv2.imwrite('samples/hsv/hsv_v.jpg', cl)

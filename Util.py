@@ -1,5 +1,4 @@
 import numpy
-from matplotlib import pyplot as plt
 
 def writeToFile(list, fileName):
 	outfile = open(fileName+'.txt', 'w') # open a file in write mode
