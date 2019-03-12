@@ -21,7 +21,7 @@ def resize(img, factor=0.3):
 	return cv2.resize(temp, (0,0), fx=factor, fy=factor)
 
 def binarize(img):
-	(thresh, binary) = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
+	(thresh, binary) = cv2.threshold(img, 130, 255, cv2.THRESH_BINARY)
 	return (thresh, binary)
 
 def binarize2(img):
