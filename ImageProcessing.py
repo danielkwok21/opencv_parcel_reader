@@ -39,7 +39,7 @@ def getTopContours(contours, sensitivity):
 	return sorted(contours, key=cv2.contourArea)[:sensitivity]
 
 def drawContours(img, contours):
-	cv2.drawContours(img, contours, -1, (255, 0, 0), 5)
+	cv2.drawContours(img, contours, -1, (255, 0, 0), 1)
 	return
 
 def rotateImage(img, angle):
@@ -55,7 +55,7 @@ def rotateImage(img, angle):
 # takes in coloured image
 # returns 3 return values from cv2.minAreaRect, and a [box] for drawing purposes
 def getMinAreaRect(img):
-	img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+	# img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	img2, contours, hierarchy = getContours(img)
 	contours = np.concatenate(contours)
 	center, rect, angle = cv2.minAreaRect(contours)

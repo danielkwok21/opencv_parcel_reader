@@ -8,14 +8,18 @@ real = oriReal
 oriTemplate = cv2.imread('template.jpeg', 0)
 template = oriTemplate
 
+# preprocess
 real = ip.dilate(real, 13)
-real = ip.erode(real, 25)
-_, real = ip.binarize(real)
+real = ip.erode(real, 20)
+_, real = ip.binarize2(real)
 
-template = ip.erode(template, 10)
-template = ip.dilate(template, 10)
-_, template = ip.binarize(template)
-template = 255-template
+# rotate
+center, rect, angle, box = ip.getMinAreaRect(real)
+ip.drawContours(real, box)
+real = ip.rotateImage(real, angle)
 
 cv2.imwrite('./result/realProcessed.jpg', real)
 cv2.imwrite('./result/templateProcessed.jpg', template)
+
+
+
