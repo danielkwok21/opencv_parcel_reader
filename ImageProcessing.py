@@ -3,19 +3,19 @@ import numpy as np
 import math
 
 def displayImage(img, option="name"):
-	img = resize(img, 0.2)
+	img = resize(img, 0.3)
 	cv2.imshow(option, img)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
 	return
 
-def erode(img, x):
+def erode(img, x=3, i=1):
 	kernel = np.ones((x,x), np.uint8)
-	return cv2.erode(img, kernel, iterations=1)
+	return cv2.erode(img, kernel, iterations=i)
 
-def dilate(img, x):
+def dilate(img, x=3, i=1):
 	kernel = np.ones((x,x), np.uint8)
-	return cv2.dilate(img, kernel, iterations=1)
+	return cv2.dilate(img, kernel, iterations=i)
 
 def resize(img, factor=0.3):
 	temp = img

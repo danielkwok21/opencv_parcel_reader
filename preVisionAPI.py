@@ -13,6 +13,8 @@ ori = cv2.imread(imgPath, cv2.IMREAD_COLOR)
 img = ori
 img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
+img = cv2.GaussianBlur(img, (5,5), 0)
+
 def onTrackbarChange(val):
 
 	l_h = cv2.getTrackbarPos('L - H', 'Trackbars')
@@ -38,13 +40,22 @@ def createTrackbar():
 	cv2.createTrackbar('U - S', 'Trackbars', 255, 255, onTrackbarChange)
 	cv2.createTrackbar('U - V', 'Trackbars', 255, 255, onTrackbarChange)
 
+# createTrackbar()
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
 
 lower_purple = np.array([120, 20, 40])
 upper_purple = np.array([179, 255, 255])
 get_purple_mask = cv2.inRange(img, lower_purple, upper_purple)
+get_purple_mask = ip.dilate(get_purple_mask, x=5,i = 10)
+get_purple_mask = ip.erode(get_purple_mask, x=5,i = 10)
 result = cv2.bitwise_and(img, img, mask=get_purple_mask)
 h, s, v = cv2.split(result)
+img = v
 
-cv2.imwrite(newImgPath, v)
+ip.displayImage(get_purple_mask)
+ip.displayImage(img)
+# cv2.imwrite(newImgPath, img)
+
 
 print 'PreVision script done.'
