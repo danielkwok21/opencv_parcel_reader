@@ -3,6 +3,7 @@ import numpy as np
 import math
 
 def displayImage(img, option="name"):
+	img = resize(img, 0.2)
 	cv2.imshow(option, img)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
@@ -20,12 +21,12 @@ def resize(img, factor=0.3):
 	temp = img
 	return cv2.resize(temp, (0,0), fx=factor, fy=factor)
 
-def binarize(img):
-	(thresh, binary) = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
+def binarize(img, threshold = 127):
+	(thresh, binary) = cv2.threshold(img, threshold, 255, cv2.THRESH_BINARY)
 	return (thresh, binary)
 
-def binarize2(img):
-	(thresh, binary) = cv2.threshold(img, 127, 255, cv2.THRESH_OTSU)
+def binarize2(img, threshold = 127):
+	(thresh, binary) = cv2.threshold(img, threshold, 255, cv2.THRESH_OTSU)
 	return (thresh, binary)
 
 # binarizes image and returns editedImage, contours, and hierarchy
