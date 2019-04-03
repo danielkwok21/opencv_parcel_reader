@@ -4,18 +4,12 @@ import numpy as np
 import cv2
 import sys
 
-imgPath = 'D:/Code/Python/OpenCV/samples/sample11.jpg'
-newImgPath = 'D:/Code/Python/OpenCV/samples/labelled/orange.jpg'
-# imgPath = 'D:/Code/Python/OpenCV/samples/sample13.jpg'
-# newImgPath = 'D:/Code/Python/OpenCV/samples/labelled/purple.jpg'
-# imgPath = 'D:/Code/Python/OpenCV/samples/sample4.jpg'
-# newImgPath = 'D:/Code/Python/OpenCV/samples/labelled/white.jpg'
-imgPath = 'D:/Code/Python/OpenCV/samples/purpleAndOrange.png'
+imgPath = 'D:/Code/Python/OpenCV/samples/sample2.jpg'
+newImgPath = 'D:/Code/Python/OpenCV/samples/labelled/filtered.jpg'
 
 ori = cv2.imread(imgPath, cv2.IMREAD_COLOR)
 img = ori
 img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-
 img = cv2.GaussianBlur(img, (5,5), 0)
 
 def onTrackbarChange(val):
@@ -45,30 +39,34 @@ def createTrackbar():
 	cv2.createTrackbar('U - S', 'Trackbars', 255, 255, onTrackbarChange)
 	cv2.createTrackbar('U - V', 'Trackbars', 255, 255, onTrackbarChange)
 
-createTrackbar()
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# createTrackbar()
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
 
-# lower_purple = np.array([120, 20, 40])
-# upper_purple = np.array([179, 50, 255])
-# # lower_purple = np.array([0, 0, 80])
-# # upper_purple = np.array([150, 255, 80])
-# get_purple_mask = cv2.inRange(img, lower_purple, upper_purple)
-# get_purple_mask = ip.dilate(get_purple_mask, x=5,i = 10)
-# get_purple_mask = ip.erode(get_purple_mask, x=5,i = 10)
-# result = cv2.bitwise_and(img, img, mask=get_purple_mask)
+lower_purple = np.array([40, 0, 0])
+upper_purple = np.array([179, 255, 255])
+purple_mask = cv2.inRange(img, lower_purple, upper_purple)
+purple_mask = ip.dilate(purple_mask, x=5,i = 10)
+purple_mask = ip.erode(purple_mask, x=5,i = 10)
+# result = cv2.bitwise_and(img, img, mask=purple_mask)
 
-# # lower_orange = np.array([0, 30, 20])
-# # upper_orange = np.array([179, 255, 255])
-# lower_orange = np.array([11, 50, 160])
-# upper_orange = np.array([10, 100, 120])
-# get_orange_mask = cv2.inRange(img, lower_orange, upper_orange)
-# get_orange_mask = ip.dilate(get_orange_mask, x=5,i = 10)
-# get_orange_mask = ip.erode(get_orange_mask, x=5,i = 10)
-# result = cv2.bitwise_and(img, img, mask=get_orange_mask)
+# lower_orange = np.array([0, 50, 240])
+lower_orange = np.array([0, 30, 0])
+upper_orange = np.array([179, 255, 255])
+orange_mask = cv2.inRange(img, lower_orange, upper_orange)
+orange_mask = ip.dilate(orange_mask, x=5,i = 10)
+orange_mask = ip.erode(orange_mask, x=5,i = 10)
+# result = cv2.bitwise_and(img, img, mask=orange_mask)
 
-# mask = cv2.bitwise_or(get_purple_mask, get_orange_mask)
-# result = cv2.bitwise_and(img, img, mask=mask)
+lower_black = np.array([0, 0, 5])
+upper_black = np.array([179, 255, 255])
+black_mask = cv2.inRange(img, lower_black, upper_black)
+black_mask = ip.dilate(black_mask, x=5,i = 10)
+black_mask = ip.erode(black_mask, x=5,i = 10)
+# result = cv2.bitwise_and(img, img, mask=black_mask)
+
+mask = cv2.bitwise_or(purple_mask, orange_mask)
+result = cv2.bitwise_and(img, img, mask=mask)
 
 h, s, v = cv2.split(result)
 img = v

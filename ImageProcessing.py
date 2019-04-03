@@ -3,7 +3,7 @@ import numpy as np
 import math
 
 def displayImage(img, option="name"):
-	# img = resize(img, 0.2)
+	img = resize(img, 0.2)
 	cv2.imshow(option, img)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
