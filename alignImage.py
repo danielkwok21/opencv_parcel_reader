@@ -10,7 +10,6 @@ contoursImgPath = 'D:/Code/Python/OpenCV/samples/labelled/contours.jpg'
 
 ori = cv2.imread(imgPath, cv2.IMREAD_COLOR)
 img = ori
-height, width, channels = img.shape
 img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
 h, s, v = cv2.split(img)

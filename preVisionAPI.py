@@ -12,59 +12,21 @@ img = ori
 img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 img = cv2.GaussianBlur(img, (5,5), 0)
 
-def onTrackbarChange(val):
+h, s, v = cv2.split(img)
+thresh, binary = ip.binarize(v)
 
-	l_h = cv2.getTrackbarPos('L - H', 'Trackbars')
-	l_s = cv2.getTrackbarPos('L - S', 'Trackbars')
-	l_v = cv2.getTrackbarPos('L - V', 'Trackbars')
-	u_h = cv2.getTrackbarPos('U - H', 'Trackbars')
-	u_s = cv2.getTrackbarPos('U - S', 'Trackbars')
-	u_v = cv2.getTrackbarPos('U - V', 'Trackbars')
+# align image
+angle = ip.getAlignAngle(binary)
+img = ip.rotateImage(ori, angle)
 
-	print(l_h, l_s, l_v)
-	lower = np.array([l_h, l_s, l_v])
-	upper = np.array([u_h, u_s, u_v])
-	mask = cv2.inRange(img, lower, upper)
 
-	ip.displayImage(mask)
-
-def createTrackbar():
-	# trackbars
-	cv2.namedWindow('Trackbars')
-	cv2.resizeWindow('Trackbars', 300, 300)
-	cv2.createTrackbar('L - H', 'Trackbars', 0, 179, onTrackbarChange)
-	cv2.createTrackbar('L - S', 'Trackbars', 0, 255, onTrackbarChange)
-	cv2.createTrackbar('L - V', 'Trackbars', 0, 255, onTrackbarChange)
-	cv2.createTrackbar('U - H', 'Trackbars', 179, 179, onTrackbarChange)
-	cv2.createTrackbar('U - S', 'Trackbars', 255, 255, onTrackbarChange)
-	cv2.createTrackbar('U - V', 'Trackbars', 255, 255, onTrackbarChange)
-
-# createTrackbar()
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
-
+# colour mask
 lower_purple = np.array([40, 0, 0])
 upper_purple = np.array([179, 255, 255])
-purple_mask = cv2.inRange(img, lower_purple, upper_purple)
-purple_mask = ip.dilate(purple_mask, x=5,i = 10)
-purple_mask = ip.erode(purple_mask, x=5,i = 10)
-# result = cv2.bitwise_and(img, img, mask=purple_mask)
-
-# lower_orange = np.array([0, 50, 240])
+purple_mask = ip.createMask(img, lower_purple, upper_purple)
 lower_orange = np.array([0, 30, 0])
 upper_orange = np.array([179, 255, 255])
-orange_mask = cv2.inRange(img, lower_orange, upper_orange)
-orange_mask = ip.dilate(orange_mask, x=5,i = 10)
-orange_mask = ip.erode(orange_mask, x=5,i = 10)
-# result = cv2.bitwise_and(img, img, mask=orange_mask)
-
-lower_black = np.array([0, 0, 5])
-upper_black = np.array([179, 255, 255])
-black_mask = cv2.inRange(img, lower_black, upper_black)
-black_mask = ip.dilate(black_mask, x=5,i = 10)
-black_mask = ip.erode(black_mask, x=5,i = 10)
-# result = cv2.bitwise_and(img, img, mask=black_mask)
-
+orange_mask = ip.createMask(img, lower_orange, upper_orange)
 mask = cv2.bitwise_or(purple_mask, orange_mask)
 result = cv2.bitwise_and(img, img, mask=mask)
 

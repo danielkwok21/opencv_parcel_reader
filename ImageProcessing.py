@@ -123,14 +123,12 @@ def rotateBound(img, angle):
 
 # gets img as bin
 # returns an angle that would fix any misalignment based on text orientation
-def getAlignAngle(bin):
-	temp = bin
+def getAlignAngle(binary):
+	temp = binary
 
 	temp = erode(temp, 5, 10)
-	# ip.displayImage(ip.resize(temp))
 
 	temp = dilate(temp, 5, 5)
-	# ip.displayImage(ip.resize(temp))
 
 	temp, contours, hierarchy = getContours(temp)
 
@@ -174,4 +172,11 @@ def getAlignAngle(bin):
 		return aveAngle
 	else:
 		# print 'is vert - wrong orientation'
-		return aveAngle+90
+		return aveAngle+9
+
+def createMask(img, lower, upper):
+	mask = cv2.inRange(img, lower, upper)
+	mask = dilate(mask, x=5,i = 10)
+	mask = erode(mask, x=5,i = 10)
+	return mask
+
