@@ -53,11 +53,11 @@ def rotateImage(img, angle):
 	return rotated
 
 def getMinAreaRectFromContour(contour):
-	center, rect, angle = cv2.minAreaRect(contour)
-	minRect = (center, rect, angle)
+	center, (w, h), angle = cv2.minAreaRect(contour)
+	minRect = (center, (w, h), angle)
 	box = cv2.boxPoints(minRect)
 	box = np.int0(box)
-	return center, rect, angle, [box]
+	return center, (w, h), angle, [box]
 
 # takes in coloured image
 # returns 3 return values from cv2.minAreaRect, and a [box] for drawing purposes with drawContours()
@@ -125,6 +125,7 @@ def rotateBound(img, angle):
 # returns an angle that would fix any misalignment based on text orientation
 def getAlignAngle(binary):
 	temp = binary
+	height, width = temp.shape
 
 	temp = erode(temp, 5, 10)
 
@@ -132,47 +133,68 @@ def getAlignAngle(binary):
 
 	temp, contours, hierarchy = getContours(temp)
 
-	contours = getSortedContours(contours)[:len(contours)/4]
+	# contours = getSortedContours(contours)[:len(contours)/4]
 
 	horzCounter = 0
 	vertCounter = 0
-	totalAngle = 0
+	angles = []
 	aveAngle = 0
 
-	# # diagnostics-
-	# white_blank = np.ones((height, width, 1))
-	# print 'len(contours): ', len(contours)	
+	# diagnostics-
+	white_blank = np.ones((height, width, 1))
+	print 'len(contours): ', len(contours)	
 
 	for contour in contours:
-	# contour = contours[8]
-		center, rect, angle, [box] = getMinAreaRectFromContour(contour)
+	# contour = contours[20]
+		center, (w, h), angle, [box] = getMinAreaRectFromContour(contour)
 
-		# # diagnostics-
-		# white_blank = ip.drawContours(white_blank, [box])
-		boxWidth = abs(box[0][0] - box[2][0])
-		boxHeight = abs(box[0][1] - box[2][1])
+		# diagnostics-
+		white_blank = drawContours(white_blank, [box])
 
-		if boxWidth/boxHeight>1:
+		if w/h>1:
 			horzCounter = horzCounter+1
-			totalAngle = totalAngle+angle
+			angles.append(angle)
 		else:
 			vertCounter = vertCounter+1
 
-
-	aveAngle = totalAngle/len(contours)
+	cv2.imwrite('D:/Code/Python/OpenCV/samples/labelled/whiteblank.jpg', white_blank)
+				
+	angles = removeOutliers(angles)
+	angle = sum(angles)/len(angles)
+	print 'this angle:', angle
 
 	# # diagnostics-
 	# print 'horzCounter ', horzCounter
 	# print 'vertCounter', vertCounter
-	# print '\ntotalAngle ', totalAngle
-	# print 'aveAngle', aveAngle
 
 	if horzCounter>=vertCounter:
 		# print 'is horz - correct orientation'
-		return aveAngle
+		return -angle
 	else:
 		# print 'is vert - wrong orientation'
-		return aveAngle+9
+		return -(angle+90)
+
+def getIQ(arr, range):
+	if not len(arr)%2:
+		# even
+		return (arr[(len(arr)/4*range)-1] + arr[len(arr)/4*range])/2.0
+	else:
+		# odd
+		return arr[(len(arr)/4*range)]
+
+def removeOutliers(arr):
+	median = getIQ(arr, 2)
+	IQ1 = getIQ(arr, 1)
+	IQ3 = getIQ(arr, 3)
+	IQR = IQ3 - IQ1
+	lower_limit = IQ1 - IQR
+	upper_limit = IQ3 + IQR
+
+	for a in arr:
+		if a<lower_limit or a>upper_limit:
+			arr.remove(a)
+
+	return arr
 
 def createMask(img, lower, upper):
 	mask = cv2.inRange(img, lower, upper)
