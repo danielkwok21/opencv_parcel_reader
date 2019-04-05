@@ -133,16 +133,15 @@ def getAlignAngle(binary):
 
 	temp, contours, hierarchy = getContours(temp)
 
-	# contours = getSortedContours(contours)[:len(contours)/4]
+	contours = getSortedContours(contours)[:len(contours)/4]
 
 	horzCounter = 0
 	vertCounter = 0
 	angles = []
-	aveAngle = 0
 
 	# diagnostics-
 	white_blank = np.ones((height, width, 1))
-	print 'len(contours): ', len(contours)	
+	# print 'len(contours): ', len(contours)	
 
 	for contour in contours:
 	# contour = contours[20]
@@ -158,10 +157,9 @@ def getAlignAngle(binary):
 			vertCounter = vertCounter+1
 
 	cv2.imwrite('D:/Code/Python/OpenCV/samples/labelled/whiteblank.jpg', white_blank)
-				
+
 	angles = removeOutliers(angles)
 	angle = sum(angles)/len(angles)
-	print 'this angle:', angle
 
 	# # diagnostics-
 	# print 'horzCounter ', horzCounter
@@ -169,10 +167,13 @@ def getAlignAngle(binary):
 
 	if horzCounter>=vertCounter:
 		# print 'is horz - correct orientation'
-		return -angle
+		# print 'angle:', angle
+		return angle, True
 	else:
 		# print 'is vert - wrong orientation'
-		return -(angle+90)
+		angle = 360 - angle
+		# print 'angle:', angle
+		return angle, False
 
 def getIQ(arr, range):
 	if not len(arr)%2:
