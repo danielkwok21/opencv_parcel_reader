@@ -37,8 +37,11 @@ def getContours(img):
 def getSortedContours(contours):
 	return sorted(contours, key=cv2.contourArea, reverse=True)
 
-def drawContours(img, contours):
-	cv2.drawContours(img, contours, -1, (255, 0, 0), 5)
+def drawContours(img, contours, w, h):
+	if w/h>1:
+		cv2.drawContours(img, contours, -1, (255, 0, 0), 5)
+	else:
+		cv2.drawContours(img, contours, -1, (255, 0, 0), 2)
 	return img
 
 def rotateImage(img, angle):
@@ -133,7 +136,9 @@ def getAlignAngle(binary):
 
 	temp, contours, hierarchy = getContours(temp)
 
-	contours = getSortedContours(contours)[:len(contours)/4]
+	# contours = getSortedContours(contours)[:len(contours)/4]
+	contours = getSortedContours(contours)
+	contours = filter(lambda c: not isOutlier(cv2.contourArea(c), map(lambda c: cv2.contourArea(c), contours), 'upper'), contours)
 
 	horzCounter = 0
 	vertCounter = 0
@@ -144,11 +149,11 @@ def getAlignAngle(binary):
 	# print 'len(contours): ', len(contours)	
 
 	for contour in contours:
-	# contour = contours[20]
+	# contour = contours[10]
 		center, (w, h), angle, [box] = getMinAreaRectFromContour(contour)
 
 		# diagnostics-
-		white_blank = drawContours(white_blank, [box])
+		white_blank = drawContours(white_blank, [box], w, h)
 
 		if w/h>1:
 			horzCounter = horzCounter+1
@@ -184,6 +189,7 @@ def getIQ(arr, range):
 		return arr[(len(arr)/4*range)]
 
 def removeOutliers(arr):
+	arr.sort()
 	median = getIQ(arr, 2)
 	IQ1 = getIQ(arr, 1)
 	IQ3 = getIQ(arr, 3)
@@ -197,6 +203,22 @@ def removeOutliers(arr):
 
 	return arr
 
+def isOutlier(d, arr, bias='none'):
+	arr.sort()
+	median = getIQ(arr, 2)
+	IQ1 = getIQ(arr, 1)
+	IQ3 = getIQ(arr, 3)
+	IQR = IQ3 - IQ1
+	lower_limit = IQ1 - IQR
+	upper_limit = IQ3 + IQR
+
+	if bias=='upper':
+		return d<lower_limit
+	elif bias=='lower':
+		return d>upper_limit
+	else:
+		return d<lower_limit or d>upper_limit
+		
 def createMask(img, lower, upper):
 	mask = cv2.inRange(img, lower, upper)
 	mask = dilate(mask, x=5,i = 10)
