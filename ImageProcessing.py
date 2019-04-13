@@ -1,9 +1,9 @@
 import cv2
 import numpy as np
 import math
+import os
 
 def displayImage(img, option="name"):
-	img = resize(img, 0.2)
 	cv2.imshow(option, img)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
@@ -21,28 +21,52 @@ def resize(img, factor=0.3):
 	temp = img
 	return cv2.resize(temp, (0,0), fx=factor, fy=factor)
 
-def binarize(img, threshold = 127):
-	(thresh, binary) = cv2.threshold(img, threshold, 255, cv2.THRESH_BINARY)
-	return (thresh, binary)
+# def binarize(img, threshold = 127, algo=cv2.THRESH_BINARY):
+# 	if algo == 'otsu':
+# 		algo = cv2.THRESH_OTSU
+# 	else:
+# 		algo = cv2.THRESH_BINARY
+# 	print 'algo: ', algo
+# 	(thresh, binary) = cv2.threshold(img, threshold, 255, algo)
+# 	return (thresh, binary)
 
-def binarize2(img, threshold = 127):
-	(thresh, binary) = cv2.threshold(img, threshold, 255, cv2.THRESH_OTSU)
-	return (thresh, binary)
-
-# binarizes image and returns editedImage, contours, and hierarchy
+# grayscales & binarizes image 
+# returns editedImage, contours, and hierarchy
 def getContours(img):
+	if len(img.shape) > 2:
+		img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	img2, contours, hierarchy = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 	return img2, contours, hierarchy
 
-def getSortedContours(contours):
-	return sorted(contours, key=cv2.contourArea, reverse=True)
+# same as getContours() but sorted
+def getSortedContours(img):
+	if len(img.shape) > 2:
+		img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+	img2, contours, hierarchy = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+	contours = sorted(contours, key=cv2.contourArea, reverse=True)
+	return img2, contours, hierarchy
 
-def drawContours(img, contours, w, h):
-	if w/h>1:
-		cv2.drawContours(img, contours, -1, (255, 0, 0), 5)
+def drawDot(img, coor, color):
+	# white
+	if color == 1:
+		color = (255, 255, 255)
+	# red
+	elif color == 2:
+		color = (0, 0, 255)
+	# blue
+	elif color == 3:
+		color = (255, 0, 0)
+	# green
+	elif color == 4:
+		color = (0, 255, 0)
+	# black
 	else:
-		cv2.drawContours(img, contours, -1, (255, 0, 0), 2)
-	return img
+		color = (0, 0, 0)
+
+	return cv2.circle(img,(coor[0], coor[1]), 5, color, -1)
+
+def drawContours(img, contours):
+	return cv2.drawContours(img, contours, -1, (255, 255, 255), 5)
 
 def rotateImage(img, angle):
 	temp = img
@@ -63,28 +87,29 @@ def getMinAreaRectFromContour(contour):
 	return center, (w, h), angle, [box]
 
 # takes in coloured image
-# returns 3 return values from cv2.minAreaRect, and a [box] for drawing purposes with drawContours()
-def getMinAreaRect(img):
-	# img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+# returns 3 return values from cv2.minAreaRect, 
+# and a [box] for drawing purposes with drawContours()
+def getMinAreaRectFromImage(img):
 	img2, contours, hierarchy = getContours(img)
 	contours = np.concatenate(contours)
-	center, rect, angle = cv2.minAreaRect(contours)
-	minRect = (center, rect, angle)
+	center, (w, h), angle = cv2.minAreaRect(contours)
+	minRect = (center, (w, h), angle)
 	box = cv2.boxPoints(minRect)
 	box = np.int0(box)
-	return center, rect, angle, [box]
+	return center, (w, h), angle, [box]
 
-# draw rectangle around contours directly around image
+# draw rectangle around all contours in image
 # return left, top, right and bottom
 # of largest contour (for cropping purposes)
 def drawRects(img, contours):
+	temp = img
 	rects = []
 	for c in contours:
 		peri = cv2.arcLength(c, True)
 		approx = cv2.approxPolyDP(c, 0.02 * peri, True)
 		x, y, w, h = cv2.boundingRect(approx)
 		rects.append([x, y, x+w, y+h])
-		cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 1);
+		cv2.rectangle(temp, (x, y), (x+w, y+h), (0, 255, 0), 1);
 
 	xs = []
 	ys = []
@@ -103,42 +128,27 @@ def drawRects(img, contours):
 	right = max(ws)
 	bottom = max(hs)
 
-	cv2.rectangle(img, (left,top), (right,bottom), (255, 0, 0), 2)
-	return left, top, right, bottom
+	cv2.rectangle(temp, (left,top), (right,bottom), (255, 0, 0), 2)
+	return (left, top, right, bottom)
 
-def rotateBound(img, angle):
-	h, w, c = img.shape
-	cx = w/2
-	cy = h/2
-	center = (cx, cy)
-
-	M = cv2.getRotationMatrix2D(center, -angle, 1.0)
-	cos = np.abs(M[0, 0])
-	sin = np.abs(M[0, 1])
-
-	_w = int((h*sin)+(w*cos))
-	_h = int((h*cos)+(w*sin))
-
-	M[0, 2] += (_w/2)-cx
-	M[1, 2] += (_h/2)-cy
-
-	return cv2.warpAffine(img, M, (_w, _h))
 
 # gets img as bin
 # returns an angle that would fix any misalignment based on text orientation
-def getAlignAngle(binary):
-	temp = binary
+def getAlignAngle(img):
+	temp = img
+
+	if len(temp.shape) > 2:
+		temp = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
 	height, width = temp.shape
 
-	temp = erode(temp, 5, 10)
-
-	temp = dilate(temp, 5, 5)
-
-	temp, contours, hierarchy = getContours(temp)
+	# temp = erode(temp, 5, 10)
+	# temp = dilate(temp, 5, 5)
 
 	# contours = getSortedContours(contours)[:len(contours)/4]
-	contours = getSortedContours(contours)
+	_, contours, hierarchy = getSortedContours(temp)
 	contours = filter(lambda c: not isOutlier(cv2.contourArea(c), map(lambda c: cv2.contourArea(c), contours), 'upper'), contours)
+
 
 	horzCounter = 0
 	vertCounter = 0
@@ -153,7 +163,7 @@ def getAlignAngle(binary):
 		center, (w, h), angle, [box] = getMinAreaRectFromContour(contour)
 
 		# diagnostics-
-		white_blank = drawContours(white_blank, [box], w, h)
+		white_blank = drawContours(white_blank, [box])
 
 		if w/h>1:
 			horzCounter = horzCounter+1
@@ -175,8 +185,8 @@ def getAlignAngle(binary):
 		# print 'angle:', angle
 		return angle, True
 	else:
-		# print 'is vert - wrong orientation'
 		angle = 360 - angle
+		# print 'is vert - wrong orientation'
 		# print 'angle:', angle
 		return angle, False
 
@@ -189,35 +199,39 @@ def getIQ(arr, range):
 		return arr[(len(arr)/4*range)]
 
 def removeOutliers(arr):
-	arr.sort()
-	median = getIQ(arr, 2)
-	IQ1 = getIQ(arr, 1)
-	IQ3 = getIQ(arr, 3)
-	IQR = IQ3 - IQ1
-	lower_limit = IQ1 - IQR
-	upper_limit = IQ3 + IQR
+	if len(arr) > 2:
+		arr.sort()
+		IQ1 = getIQ(arr, 1)
+		IQ3 = getIQ(arr, 3)
+		IQR = IQ3 - IQ1
+		lower_limit = IQ1 - IQR
+		upper_limit = IQ3 + IQR
 
-	for a in arr:
-		if a<lower_limit or a>upper_limit:
-			arr.remove(a)
-
-	return arr
+		for a in arr:
+			if a<lower_limit or a>upper_limit:
+				arr.remove(a)
+		return arr
+	else:
+		return arr
 
 def isOutlier(d, arr, bias='none'):
-	arr.sort()
-	median = getIQ(arr, 2)
-	IQ1 = getIQ(arr, 1)
-	IQ3 = getIQ(arr, 3)
-	IQR = IQ3 - IQ1
-	lower_limit = IQ1 - IQR
-	upper_limit = IQ3 + IQR
+	if len(arr) > 2:
+		arr.sort()
+		median = getIQ(arr, 2)
+		IQ1 = getIQ(arr, 1)
+		IQ3 = getIQ(arr, 3)
+		IQR = IQ3 - IQ1
+		lower_limit = IQ1 - IQR
+		upper_limit = IQ3 + IQR
 
-	if bias=='upper':
-		return d<lower_limit
-	elif bias=='lower':
-		return d>upper_limit
+		if bias=='upper':
+			return d<lower_limit
+		elif bias=='lower':
+			return d>upper_limit
+		else:
+			return d<lower_limit or d>upper_limit
 	else:
-		return d<lower_limit or d>upper_limit
+		return false
 		
 def createMask(img, lower, upper):
 	mask = cv2.inRange(img, lower, upper)

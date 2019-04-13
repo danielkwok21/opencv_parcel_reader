@@ -1,3 +1,4 @@
+ar = [300, 400, 500, 600, 10, 10000]
 arr = [[1, 2], [6, 7], [5, 6], [7, 8], [6, 7], [5, 6], [7, 8]]
 area_arr = [2685721.0, 43449.5, 30452.0, 27034.5, 25995.5, 22223.0, 20987.5, 
 18276.0, 12237.5, 12134.5, 10784.0, 8160.5, 6135.0, 5879.0, 5659.5, 5614.0, 
@@ -26,7 +27,7 @@ def removeOutliers(arr):
 
 	return arr
 
-def isOutlier(d, arr):
+def isOutlier(d, arr, bias='none'):
 	arr.sort()
 	median = getIQ(arr, 2)
 	IQ1 = getIQ(arr, 1)
@@ -35,15 +36,15 @@ def isOutlier(d, arr):
 	lower_limit = IQ1 - IQR
 	upper_limit = IQ3 + IQR
 
-	print 'IQ3: ',IQ3
-	print 'IQ1: ',IQ1
-
-	return d<lower_limit or d>upper_limit
+	if bias=='top':
+		return d<lower_limit
+	elif bias=='bottom':
+		return d>upper_limit
+	else:
+		return d<lower_limit or d>upper_limit
 
 def getArea(d):
 	return d[0]*d[1]
 
-print 'area_arr:', len(area_arr)
-print 'area_arr:'
-
-print filter(lambda a: isOutlier(a, area_arr), area_arr)
+print filter(lambda a:not isOutlier(a, ar, 'top'), ar)
+print filter(lambda a:not isOutlier(a, ar, 'bottom'), ar)

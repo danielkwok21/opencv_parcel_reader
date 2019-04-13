@@ -4,7 +4,7 @@ import numpy as np
 import cv2
 import sys
 
-imgPath = 'D:/Code/Python/OpenCV/samples/sample3.jpg'
+imgPath = 'D:/Code/Python/OpenCV/samples/sample13.jpg'
 imgPath2 = 'D:/Code/Python/OpenCV/samples/labelled/ori.jpg'
 newImgPath = 'D:/Code/Python/OpenCV/samples/labelled/filtered.jpg'
 
@@ -26,19 +26,19 @@ total_angle = 0
 loops = 0
 maxLoops = 50
 while True:
-    trial_angle, is_horz = ip.getAlignAngle(binary)
-    binary = ip.rotateImage(binary, trial_angle)
-    loops = loops + 1
-    print loops
-    if is_horz:
-        prepared = True
-    if loops > maxLoops:
-        break
-    if prepared	and not is_horz:
-        break	
-    else:
-        total_angle = total_angle + trial_angle
-        
+	trial_angle, is_horz = ip.getAlignAngle(binary)
+	binary = ip.rotateImage(binary, trial_angle)
+	loops = loops + 1
+	print trial_angle
+	if is_horz:
+		prepared = True
+	if loops > maxLoops:
+		break
+	if prepared and not is_horz:
+		break
+	else:
+		total_angle = total_angle + trial_angle
+		
 img = ip.rotateImage(ori, total_angle)
 h, s, v = cv2.split(img)
 img = v
