@@ -14,10 +14,8 @@ ori = cv2.imread(imgPath, cv2.IMREAD_COLOR)
 cv2.imwrite(imgPath2, ori)
 img = ori
 
-angle, isHorz = ip.getAlignAngle(img)
-print angle, isHorz
+center, (w, h), angle, [box] = ip.getMinAreaRectFromImage(img)
 
-img = ip.rotateImage(img, angle)
 
 cv2.imwrite(newImgPath, img)
 

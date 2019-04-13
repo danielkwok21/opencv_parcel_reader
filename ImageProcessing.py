@@ -129,7 +129,7 @@ def drawRects(img, contours):
 	bottom = max(hs)
 
 	cv2.rectangle(temp, (left,top), (right,bottom), (255, 0, 0), 2)
-	return (left, top, right, bottom)
+	return temp,(left, top, right, bottom)
 
 
 # gets img as bin
