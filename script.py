@@ -1,50 +1,41 @@
-ar = [300, 400, 500, 600, 10, 10000]
-arr = [[1, 2], [6, 7], [5, 6], [7, 8], [6, 7], [5, 6], [7, 8]]
-area_arr = [2685721.0, 43449.5, 30452.0, 27034.5, 25995.5, 22223.0, 20987.5, 
-18276.0, 12237.5, 12134.5, 10784.0, 8160.5, 6135.0, 5879.0, 5659.5, 5614.0, 
-5154.0, 5081.0, 4941.0, 4859.5, 4702.0, 4544.0, 4439.5, 4387.5, 4280.5, 4257.0, 
-3885.5, 3779.5, 3164.5, 2483.5, 2423.5, 2378.0, 2360.5, 1928.0, 1902.0, 1699.5]
+boxVert1 = [[2008, 2026], [1998, 1474], [2056, 1473], [2065, 2025]]
+boxVert2 = [[994, 1679], [911, 1670], [955, 1245], [1039, 1254]]
+boxVert3 = [[126, 1572], [-28, 1140], [107, 1092], [261, 1524]]
+boxVert4 = [[450, 288], [430, 181], [472, 173], [492, 280]]
+boxHorz1 = [[301, 317], [281, 209], [427, 182], [447, 289]]
+boxHorz2 = [[298, 321], [276, 206], [475, 169], [497, 284]]
 
-def getIQ(arr, range):
-	if not len(arr)%2:
-		# even
-		return (arr[(len(arr)/4*range)-1] + arr[len(arr)/4*range])/2.0
-	else:
-		# odd
-		return arr[(len(arr)/4*range)]
+def isHorz(arr):
+    arrY = sortBy(arr, 'y')
+    arrX = sortBy(arr, 'x')
+    height = abs(arrY[0][1] - arrY[2][1])
+    width = abs(arrX[0][0] - arrX[2][0])
 
-def removeOutliers(arr):
-	median = getIQ(arr, 2)
-	IQ1 = getIQ(arr, 1)
-	IQ3 = getIQ(arr, 3)
-	IQR = IQ3 - IQ1
-	lower_limit = IQ1 - IQR
-	upper_limit = IQ3 + IQR
+    # print 'arrY', arrY
+    # print 'arrX', arrX
+    # print 'height', height
+    # print 'width', width
 
-	for a in arr:
-		if a<lower_limit or a>upper_limit:
-			arr.remove(a)
+    if width/height<1:
+        # print 'vert'
+        return False
+    else:
+        # print 'horz'
+        return True
 
-	return arr
+def sortBy(arr, i=0):
+    if i == 'x':
+        i = 0
+    elif i == 'y':
+        i = 1
 
-def isOutlier(d, arr, bias='none'):
-	arr.sort()
-	median = getIQ(arr, 2)
-	IQ1 = getIQ(arr, 1)
-	IQ3 = getIQ(arr, 3)
-	IQR = IQ3 - IQ1
-	lower_limit = IQ1 - IQR
-	upper_limit = IQ3 + IQR
+    temp = arr[:]
+    temp.sort(key=lambda t: t[i])
+    return temp
 
-	if bias=='top':
-		return d<lower_limit
-	elif bias=='bottom':
-		return d>upper_limit
-	else:
-		return d<lower_limit or d>upper_limit
-
-def getArea(d):
-	return d[0]*d[1]
-
-print filter(lambda a:not isOutlier(a, ar, 'top'), ar)
-print filter(lambda a:not isOutlier(a, ar, 'bottom'), ar)
+print isHorz(boxVert1)
+print isHorz(boxVert2)
+print isHorz(boxVert3)
+print isHorz(boxVert4)
+print isHorz(boxHorz1)
+print isHorz(boxHorz2)
