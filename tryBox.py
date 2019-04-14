@@ -5,7 +5,7 @@ import cv2
 import sys
 import os
 
-# vertImgPath = 'D:/Code/Python/OpenCV/samples/horzTilt.jpg'
+vertImgPath = 'D:/Code/Python/OpenCV/samples/horzTilt.jpg'
 # vertImgPath = 'D:/Code/Python/OpenCV/samples/horzTilt2.jpg'
 # vertImgPath = 'D:/Code/Python/OpenCV/samples/vertTilt.jpg'
 # vertImgPath = 'D:/Code/Python/OpenCV/samples/vertTilt2.jpg'

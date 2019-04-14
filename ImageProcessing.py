@@ -9,24 +9,31 @@ def displayImage(img, option="name"):
 	cv2.destroyAllWindows()
 	return
 
+# draws display over a blank backgorund for temp display
 def displayContours(contours, height, width):
 	displayImage(getPlainDrawnContours(contours, height, width), 'contours')
 	return
 
+# binarizes img (any type)
 def binarize(img):
 	temp = img
+	temp = grayscale(img)
 	thresh, temp = cv2.threshold(temp,127,255,cv2.THRESH_OTSU)
 	return thresh, temp
 
+# enables indexed img path to be written to sample path provided
+# useful to observe how images change with each iteration
 def iterativeWrites(img, path, i):
 	newPath = path.split('.')
 	newPath = newPath[0]+str(i)+'.'+newPath[1]
 	cv2.imwrite(newPath, img)
 
+# less white
 def erode(img, x=3, i=1):
 	kernel = np.ones((x,x), np.uint8)
 	return cv2.erode(img, kernel, iterations=i)
 
+# more white
 def dilate(img, x=3, i=1):
 	kernel = np.ones((x,x), np.uint8)
 	return cv2.dilate(img, kernel, iterations=i)
@@ -35,43 +42,46 @@ def resize(img, factor=0.3):
 	temp = img
 	return cv2.resize(temp, (0,0), fx=factor, fy=factor)
 
+# grayscales img (returns img untouched if is already grayscale)
 def grayscale(img):
 	if len(img.shape) > 2:
 		return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	else:
 		return img
 
+# returns if box provided is of horizontal orientation
+# box is an array of tuples representing a rect contour
 # sample parameter 
 # [[709 475] [331 475] [332 257] [709 257]]
-
 def isHorz(box):
-    boxY = sortBoxBy(box, 'y')
-    boxX = sortBoxBy(box, 'x')
-    height = abs(boxY[0][1] - boxY[2][1])
-    width = abs(boxX[0][0] - boxX[2][0])
 
-    # print 'boxY', boxY
-    # print 'boxX', boxX
-    # print 'height', height
-    # print 'width', width
+	def sortBoxBy(box, i=0):
+		if i == 'x':
+			i = 0
+		elif i == 'y':
+			i = 1
 
-    if width/height<1:
-        # print 'vert'
-        return False
-    else:
-        # print 'horz'
-        return True
+		temp = box[:]
+		temp = list(temp)
+		temp.sort(key=lambda t: t[i])
+		return temp
 
-def sortBoxBy(box, i=0):
-    if i == 'x':
-        i = 0
-    elif i == 'y':
-        i = 1
+	boxY = sortBoxBy(box, 'y')
+	boxX = sortBoxBy(box, 'x')
+	height = abs(boxY[0][1] - boxY[2][1])
+	width = abs(boxX[0][0] - boxX[2][0])
 
-    temp = box[:]
-    temp = list(temp)
-    temp.sort(key=lambda t: t[i])
-    return temp
+	# print 'boxY', boxY
+	# print 'boxX', boxX
+	# print 'height', height
+	# print 'width', width
+
+	if width/height<1:
+		# print 'vert'
+		return False
+	else:
+		# print 'horz'
+		return True
 
 def getPlainDrawnContours(contours, height, width, mark = False):
 	img = np.zeros((height,width,3), np.uint8)
@@ -93,8 +103,7 @@ def getPlainDrawnContours(contours, height, width, mark = False):
 # grayscales & binarizes image 
 # returns editedImage, contours, and hierarchy
 def getContours(img):
-	if len(img.shape) > 2:
-		img = grayscale(img)
+	img = grayscale(img)
 	img2, contours, hierarchy = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 	return img2, contours, hierarchy
 
@@ -104,18 +113,18 @@ def getSortedContours(img):
 	contours = sorted(contours, key=cv2.contourArea, reverse=True)
 	return img, contours, hierarchy
 
-def drawDot(img, coor, color):
+def drawDot(img, coor, color='black'):
 	# white
-	if color == 1:
+	if color == 'white':
 		color = (255, 255, 255)
 	# red
-	elif color == 2:
+	elif color == 'red':
 		color = (0, 0, 255)
 	# blue
-	elif color == 3:
+	elif color == 'blue':
 		color = (255, 0, 0)
 	# green
-	elif color == 4:
+	elif color == 'green':
 		color = (0, 255, 0)
 	# black
 	else:
@@ -123,6 +132,9 @@ def drawDot(img, coor, color):
 
 	return cv2.circle(img,(coor[0], coor[1]), 5, color, -1)
 
+# draws contours on img provided and returns the drawn image.
+# horizontal boxes are red
+# vertical boxes are blue
 def drawContours(img, contours, redHorz = False):
 	if not redHorz:
 		# vert blue
@@ -131,8 +143,9 @@ def drawContours(img, contours, redHorz = False):
 		# horz red
 		return cv2.drawContours(img, contours, -1, (0, 0, 255), 5)
 
-# negative clockwise
-# positive anti clockwise
+# -ve angle = clockwise
+# +ve angle = anti-clockwise
+# returns rotated image based on angle provided
 def rotateImage(img, angle):
 	temp = img
 	(h, w) = img.shape[:2]
@@ -141,6 +154,9 @@ def rotateImage(img, angle):
 	rotated = cv2.warpAffine(temp, M, (w, h), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_TRANSPARENT)
 	return rotated
 
+# wraps a min area rect around a contour provided
+# returns 3 return values from cv2.minAreaRect, 
+# and a [box] for drawing purposes with drawContours()
 def getMinAreaRectFromContour(contour):
 	center, (w, h), angle = cv2.minAreaRect(contour)
 	minRect = (center, (w, h), angle)
@@ -148,7 +164,7 @@ def getMinAreaRectFromContour(contour):
 	box = np.int0(box)
 	return center, (w, h), angle, [box]
 
-# takes in coloured image
+# takes in any kind of image
 # returns 3 return values from cv2.minAreaRect, 
 # and a [box] for drawing purposes with drawContours()
 def getMinAreaRectsFromImage(img):
@@ -168,8 +184,8 @@ def getMinAreaRectsFromImage(img):
 	medianAngle = findAverageMedian(angles)
 	return center, (w, h), medianAngle, boxes
 
-# draw rectangle around all contours in image
-# return left, top, right and bottom
+# draws regular rect around all contours in image
+# returns left, top, right and bottom
 # of largest contour (for cropping purposes)
 def drawRects(img, contours):
 	temp = img
@@ -201,8 +217,8 @@ def drawRects(img, contours):
 	cv2.rectangle(temp, (left,top), (right,bottom), (255, 0, 0), 2)
 	return temp,(left, top, right, bottom)
 
-# gets img as bin
-# returns an angle that would fix any misalignment based on text orientation
+# takes in any kind of image
+# returns an angle that would fix any misalignment based on contour orientation, e.g. text
 def getAlignAngle(img):
 	temp = img
 
@@ -213,12 +229,11 @@ def getAlignAngle(img):
 
 	height, width = temp.shape
 
+	# this erode and dilation is based on MAILROOM's context.
+	# erode and dilate accordingly when dealing with different images
 	temp = erode(temp, 5, 10)
 	temp = dilate(temp, 5, 5)
 
-	# temp = dilate(temp, 3, 3)
-
-	# contours = getSortedContours(contours)[:len(contours)/4]
 	_, contours, hierarchy = getSortedContours(temp)
 
 	contours = filter(lambda c: not isOutlier(cv2.contourArea(c), map(lambda c: cv2.contourArea(c), contours), 'upper'), contours)
@@ -243,13 +258,13 @@ def getAlignAngle(img):
 	contoursImg = getPlainDrawnContours(detectedContours, height, width, True)
 	angles = removeOutliers(angles)
 	angle = findAverageMedian(angles)
-	print 'og angle: ', angle
+	# print 'og angle: ', angle
 
- 	orientationIsHorz = horzCounter > vertCounter
+	orientationIsHorz = horzCounter > vertCounter
 
- 	# if current orientation is perfect vert
+	# if current orientation is perfect vert
 	if not orientationIsHorz and angle == 0:
-		print 'is perfect vert. Forcing 90 degree turn'
+		# print 'is perfect vert. Forcing 90 degree turn'
 		if angle < 0:
 			angle = angle - 90
 		else:
@@ -257,20 +272,22 @@ def getAlignAngle(img):
 
 	# if current orientation is horz and rotation > 45 (causing a horz -> vert rotation)
 	if orientationIsHorz:
-		print 'is horz. Preventing to-vert-rotation'
+		# print 'is horz. Preventing to-vert-rotation'
 		if -45>angle>-90:
 			angle = 90 + angle
 	else:
-		print 'is vert. Converting -ve to +ve to maximize upright probability'
+		# print 'is vert. Converting -ve to +ve to maximize upright probability'
 		angle = -angle
 
-	# diagnostics-
-	print 'post adjustment angle: ', angle
-	print 'horzCounter:', horzCounter
-	print 'vertCounter:', vertCounter
+	# # diagnostics-
+	# print 'post adjustment angle: ', angle
+	# print 'horzCounter:', horzCounter
+	# print 'vertCounter:', vertCounter
 	
 	return contoursImg, angle, orientationIsHorz
 
+# returns quartiles
+# e.g. range of 2 = 2nd Quartile
 def getIQ(arr, range):
 	if not len(arr)%2:
 		# even
@@ -279,6 +296,7 @@ def getIQ(arr, range):
 		# odd
 		return arr[(len(arr)/4*range)]
 
+# returns a list of length > 2 with outliers removed
 def removeOutliers(arr):
 	if len(arr) > 2:
 		arr.sort()
@@ -295,6 +313,9 @@ def removeOutliers(arr):
 	else:
 		return arr
 
+# returns if d is an outlier in arr
+# bias is a parameter. e.g. a bias of 'upper' would mean d != outlier
+# even if d is > upper limit
 def isOutlier(d, arr, bias='none'):
 	if len(arr) > 2:
 		arr.sort()
@@ -321,22 +342,24 @@ def isOutlier(d, arr, bias='none'):
 	else:
 		return False
 
-def findFrequency(arr):
-	arr = map(lambda a:math.floor(a/10)*10, arr)
-	frequencys = []
-	for a in arr:
-		match = filter(lambda f:f[0]==a, frequencys)
-		if match:
-			match = match[0]
-			frequencys.remove(match)
-			count = (a, match[1] + 1)
-			frequencys.append(count)
-		else:
-			count = (a, 1)
-			frequencys.append(count)
-	return frequencys
-
+# finds medians in a continous series
+# returns the average of those medians
 def findAverageMedian(arr):
+	def findFrequency(arr):
+		arr = map(lambda a:math.floor(a/10)*10, arr)
+		frequencys = []
+		for a in arr:
+			match = filter(lambda f:f[0]==a, frequencys)
+			if match:
+				match = match[0]
+				frequencys.remove(match)
+				count = (a, match[1] + 1)
+				frequencys.append(count)
+			else:
+				count = (a, 1)
+				frequencys.append(count)
+		return frequencys
+
 	if arr:
 		frequencys = findFrequency(arr)
 		# print 'frequencys: ', frequencys
